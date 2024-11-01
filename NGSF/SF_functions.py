@@ -1,17 +1,21 @@
+import os
+import itertools
 import numpy as np
+from pathlib import Path
+
 from scipy import interpolate
 import extinction
 from extinction import apply
 from astropy import table
 from astropy.io import ascii
-import itertools
-import os
 from PyAstronomy import pyasl
 
+import NGSF
 from NGSF.get_metadata import Metadata
 from NGSF.error_routines import savitzky_golay, linear_error
 from NGSF.params import Parameters, data
 from NGSF.Header_Binnings import bin_spectrum_bank, mask_lines_bank, kill_header
+ngsf_path = Path(NGSF.__path__[0])
 
 np.seterr(divide="ignore", invalid="ignore")
 
@@ -103,7 +107,11 @@ def Alam(lamin, A_v=1, R_v=3.1):
 def error_obj(kind, lam, object_to_fit):
 
     """
-    This function gives an error based on user input. The error can be obtained by either a Savitzky-Golay filter,
+    This function gives an er    # if plot==1:
+
+    #    for i in range(0,n):
+
+    #        plotting(int_obj,result[:][i], lam , original, i, save=save, show=show)ror based on user input. The error can be obtained by either a Savitzky-Golay filter,
 
     a linear error approximation or it can come with the file itself.
 
@@ -462,7 +470,7 @@ def all_parameter_space(
             a = all_bank_files[i]
 
             full_name = a[a.find("sne") :]
-            one_sn = "bank/binnings/" + str(resolution) + "A/" + str(full_name)
+            one_sn = str(ngsf_path) + "/bank/binnings/" + str(resolution) + "A/" + str(full_name)
 
             if parameters.mask_galaxy_lines == 1:
                 one_sn = np.loadtxt(one_sn)
@@ -543,11 +551,5 @@ def all_parameter_space(
 
     end = time.time()
     print("Runtime: {0: .2f}s ".format(end - start))
-
-    # if plot==1:
-
-    #    for i in range(0,n):
-
-    #        plotting(int_obj,result[:][i], lam , original, i, save=save, show=show)
 
     return

@@ -1,14 +1,16 @@
+import os
+import csv
 import glob
 import numpy as np
+from pathlib import Path
 from astropy.io import ascii
-import os
-import pandas as pd
-import csv
-from NGSF.params import Parameters, data
 
+import NGSF
+from NGSF.params import Parameters, data
+ngsf_path = Path(NGSF.__path__[0])
 
 def JD(mjd):
-    return np.float(mjd) + 2400000.5
+    return float(mjd) + 2400000.5
 
 def list_folders(path):
     if path[-1] != '/':
@@ -28,10 +30,7 @@ class Metadata(object):
 
         parameters = Parameters(data)
 
-        #mjd_max_brightness = glob.glob('**/mjd**')[0]
-        mjd_max_brightness = 'NGSF/mjd_of_maximum_brightness.csv'
-
-
+        mjd_max_brightness = Path(ngsf_path, 'mjd_of_maximum_brightness.csv')
 
         with open(mjd_max_brightness, mode='r') as inp:
             reader = csv.reader(inp)
@@ -45,7 +44,7 @@ class Metadata(object):
 
 
 
-        folders = ['bank/original_resolution/sne/'+ x for x in parameters.temp_sn_tr]
+        folders = [str(ngsf_path) + '/bank/original_resolution/sne/'+ x for x in parameters.temp_sn_tr]
         have_wiserep=[]
         no_wiserep=[]
         z_dic={}
@@ -107,7 +106,7 @@ class Metadata(object):
 
                             short_path_dict[shorhand_dict[spec_file]]=spec_file
 
-                            dictionary_all_trunc_objects[spec_file] = 'bank/original_resolution/sne/' + sn_type +'/'+ sub + '/' + spec_file
+                            dictionary_all_trunc_objects[spec_file] = str(ngsf_path) + '/bank/original_resolution/sne/' + sn_type +'/'+ sub + '/' + spec_file
 
 
 
@@ -121,7 +120,7 @@ class Metadata(object):
 
                                 short_path_dict[shorhand_dict[spec_file]]=spec_file
 
-                                dictionary_all_trunc_objects[spec_file] = 'bank/original_resolution/sne/' + sn_type +'/'+ sub + '/' + spec_file
+                                dictionary_all_trunc_objects[spec_file] = str(ngsf_path) + '/bank/original_resolution/sne/' + sn_type +'/'+ sub + '/' + spec_file
 
 
 

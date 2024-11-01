@@ -3,9 +3,12 @@ import numpy as np
 import sys
 import json
 from sys import exit
+from pathlib import Path
+
+import NGSF
 from NGSF.auxiliary import select_templates
 from NGSF.Header_Binnings import kill_header
-
+ngsf_path = Path(NGSF.__path__[0])
 
 def parseJsonString(myjson):
     """
@@ -128,7 +131,7 @@ class Parameters:
 
         if self.resolution == 10 or self.resolution == 30:
             templates_gal = glob.glob(
-                "bank/binnings/" + str(self.resolution) + "A/gal/*"
+                str(ngsf_path) + "/bank/binnings/" + str(self.resolution) + "A/gal/*"
             )
             templates_gal = [
                 x for x in templates_gal if "CVS" not in x and "README" not in x
@@ -136,7 +139,7 @@ class Parameters:
             templates_gal = np.array(templates_gal)
 
             templates_sn = glob.glob(
-                "bank/binnings/" + str(self.resolution) + "A/sne/**/**/*"
+                str(ngsf_path) + "/bank/binnings/" + str(self.resolution) + "A/sne/**/**/*"
             )
             templates_sn = [
                 x
@@ -149,13 +152,13 @@ class Parameters:
             templates_sn = np.array(templates_sn)
 
         else:
-            templates_gal = glob.glob("bank/original_resolution/gal/*")
+            templates_gal = glob.glob(str(ngsf_path) + "/bank/original_resolution/gal/*")
             templates_gal = [
                 x for x in templates_gal if "CVS" not in x and "README" not in x
             ]
             templates_gal = np.array(templates_gal)
 
-            templates_sn = glob.glob("bank/original_resolution/sne/**/**/*")
+            templates_sn = glob.glob(str(ngsf_path) + "/bank/original_resolution/sne/**/**/*")
             templates_sn = [
                 x
                 for x in templates_sn

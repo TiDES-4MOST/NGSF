@@ -5,14 +5,15 @@ import numpy as np
 import pandas as pd
 from scipy import interpolate
 from scipy.ndimage import gaussian_filter1d
-
+from pathlib import Path
 
 from NGSF.SF_functions import Alam, all_parameter_space, remove_telluric, mask_gal_lines
 from NGSF.Header_Binnings import kill_header, kill_header_and_bin
 from NGSF.error_routines import linear_error, savitzky_golay
 from NGSF.get_metadata import Metadata
 from NGSF.params import Parameters, data
-
+import NGSF
+ngsf_path = Path(NGSF.__path__[0])
 
 parameters = Parameters(data)
 
@@ -271,8 +272,8 @@ class Superfit:
 
             int_obj = self.int_obj
 
-            sn_name = "bank/binnings/10A/sne/" + subtype + "/" + sn_best_fullname
-            hg_name = "bank/binnings/10A/gal/" + hg_name
+            sn_name = str(ngsf_path) + "/bank/binnings/10A/sne/" + subtype + "/" + sn_best_fullname
+            hg_name = str(ngsf_path) + "/bank/binnings/10A/gal/" + hg_name
 
             # print(sn_name)
 
@@ -373,8 +374,8 @@ class Superfit:
 
         int_obj = self.int_obj
 
-        sn_name = "bank/binnings/10A/sne/" + subtype + "/" + sn_best_fullname
-        hg_name = "bank/binnings/10A/gal/" + hg_name
+        sn_name = str(ngsf_path) + "/bank/binnings/10A/sne/" + subtype + "/" + sn_best_fullname
+        hg_name = str(ngsf_path) + "/bank/binnings/10A/gal/" + hg_name
 
         nova = kill_header(sn_name)
         nova[:, 1] = nova[:, 1] / np.nanmedian(nova[:, 1])
