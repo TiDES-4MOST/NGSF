@@ -2,6 +2,8 @@
 
 Superfit in python is a software for the spectral classification of Supernovae of all major types accompanied by a host galaxy. The following list of versions are the minumum requierments for its use.
 
+NOTE: this is just a fork! I do not claim any authorship for NGSF, just the script provided `run_ngsf.py`. Find the original repo at [https://github.com/oyaron/NGSF](https://github.com/oyaron/NGSF).
+
 ## Requierments
 
 - `Python version: 3.7.1`
@@ -12,6 +14,114 @@ Superfit in python is a software for the spectral classification of Supernovae o
 - `Pandas version: 0.23.4`
 - `PyAstronomy version: 0.13.0`
 
+# Installation
+
+From pip (COMMING SOON):
+
+```
+pip install NGSF
+```
+
+From source:
+
+```
+git clone https://github.com/temuller/NGSF.git
+cd NGSF
+pip install .
+```
+
+# Easy run
+
+You can used the script provided in this fork to avoid complexity:
+
+```
+python run_ngsf.py
+
+usage: run_ngsf <object_to_fit> [options]
+
+Next Generation SuperFit script by T. Müller-Bravo
+
+positional arguments:
+  object_to_fit         The object to analyze.
+
+options:
+  -h, --help            show this help message and exit
+  -z Z_EXACT, --z_exact Z_EXACT
+                        Exact redshift value that will be used if different from '0'
+                        (default: 0)
+  --z_range_begin Z_RANGE_BEGIN
+                        Redshift value to begin the redshift array to look for the best
+                        fit. (default: 0)
+  --z_range_end Z_RANGE_END
+                        Redshift value to end the redshift array to look for the best
+                        fit. (default: 0.1)
+  --z_int Z_INT         Redshift step to create the redshift array to look for the best
+                        fit. (default: 0.01)
+  -r--resolution RESOLUTION
+                        The resolution of the fit, the default is 10Å, however, if the
+                        spectra is of lower quality then the fit will be performed
+                        automatically at 30Å. (default: 10)
+  --lower_lam LOWER_LAM
+                        Lower bound for wavelength over which to perform the fit.
+                        (default: 0)
+  --upper_lam UPPER_LAM
+                        Upper bound for wavelength over which to perform the fit, if
+                        this is equal to 'lower_lam' then the wavelength range will be
+                        chosen automatically as that of the object to fit ± 300Å
+                        (default: 0)
+  --error_spectrum ERROR_SPECTRUM
+                        refers to the type of routine used to perform the calculation of
+                        the error spectrum. The recommended one is sg Savitzky-Golay,
+                        there is also the option of linear estimation and the option
+                        included in which the user can use the error spectrum that comes
+                        with an object if he wants to, however, this is not recommended.
+                        (default: sg)
+  -s SAVING_RESULTS_PATH, --saving_results_path SAVING_RESULTS_PATH
+                        Path in which to save the performed fits, the default one is the
+                        superfit folder. (default: )
+  --minimum_overlap MINIMUM_OVERLAP
+                        Minimum percentage overlap between the template and the object
+                        of interest. Recommendation is for this to stay near 0.7
+                        (default: 0.7)
+  -p--show_plot {0,1}   To show the plotted fit or no, the default being 1, to show.
+                        (default: 1)
+  --how_many_plots HOW_MANY_PLOTS
+                        Number of plots to show if the user wants to show, if the 'show'
+                        is zero then 'n' has no effect. (default: 5)
+  --mask_galaxy_lines {0,1}
+                        Either 1 or 0, masks the galaxy lines for both the template bank
+                        and the object of interest. For this option to work the redshift
+                        must be one defined values and not at array of values, meaning
+                        'z_int' must be equal to zero and 'z_start' must be the redshift
+                        of choice. (default: 1)
+  --mask_telluric {0,1}
+                        Either 1 or 0, masks the flux within the wavelength range from
+                        7594 to 7680 in the observer's frame. (default: 1)
+  --epoch_high EPOCH_HIGH
+                        Upper bound epoch for phase truncation. If this equals the
+                        'epoch_low' parameter then there is not phase truncation.
+                        (default: 0)
+  --epoch_low EPOCH_LOW
+                        Lower bound epoch for phase truncation. (default: 0)
+  --Alam_high ALAM_HIGH
+                        High value for the extinction law constant. (default: 2)
+  --Alam_low ALAM_LOW   Lower value for the extinction law constant. (default: -2)
+  --Alam_interval ALAM_INTERVAL
+                        Size of interval. (default: 0.2)
+
+```
+
+Example:
+
+```
+python run_ngsf SN2021urb_2021-08-06_00-00-00_Keck1_LRIS_TNS.flm -z 0.127
+```
+
+You can also make the script executable from any path:
+
+```
+chmod +x run_ngsf.py
+```
 
 # To run one object
 The user must make sure to have a template bank to look at. The new template bank can be downloaded from WISeREP [here](https://www.wiserep.org/content/wiserep-getting-started#supyfit).
