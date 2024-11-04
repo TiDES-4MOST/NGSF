@@ -89,7 +89,7 @@ setup(
     name="NGSF",
     description="Next Generation SuperFit in Python",
     long_description=long_description,
-    long_description_content_type="text/x-rst",
+    long_description_content_type="text/markdown",
     url="https://github.com/samanthagoldwasser25/NGSF",
     author="Samantha Goldwasser, Ofer Yaron, Avner Sass, Ido Irani, Avishay Gal-Yam, D. Andrew Howell",
     author_email="ofer.yaron@weizmann.ac.il ",
