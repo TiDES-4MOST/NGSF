@@ -18,13 +18,13 @@ NOTE: this is just a fork! I do not claim any authorship for NGSF, just the scri
 
 From pip (COMMING SOON):
 
-```
+```code
 pip install NGSF
 ```
 
 From source:
 
-```
+```code
 git clone https://github.com/temuller/NGSF.git
 cd NGSF
 pip install .
@@ -34,7 +34,7 @@ pip install .
 
 You can used the script provided in this fork to avoid complexity:
 
-```
+```code
 python run_ngsf.py
 
 usage: run_ngsf <object_to_fit> [options]
@@ -57,7 +57,7 @@ options:
                         fit. (default: 0.1)
   --z_int Z_INT         Redshift step to create the redshift array to look for the best
                         fit. (default: 0.01)
-  -r--resolution RESOLUTION
+  -r RESOLUTION, --resolution RESOLUTION
                         The resolution of the fit, the default is 10Å, however, if the
                         spectra is of lower quality then the fit will be performed
                         automatically at 30Å. (default: 10)
@@ -82,8 +82,8 @@ options:
   --minimum_overlap MINIMUM_OVERLAP
                         Minimum percentage overlap between the template and the object
                         of interest. Recommendation is for this to stay near 0.7
-                        (default: 0.7)
-  -p--show_plot {0,1}   To show the plotted fit or no, the default being 1, to show.
+                        (default: 0.7)           
+  -p {0,1}, --show_plot {0,1}   To show the plotted fit or no, the default being 1, to show.
                         (default: 1)
   --how_many_plots HOW_MANY_PLOTS
                         Number of plots to show if the user wants to show, if the 'show'
@@ -113,13 +113,13 @@ options:
 
 Example:
 
-```
+```code
 python run_ngsf SN2021urb_2021-08-06_00-00-00_Keck1_LRIS_TNS.flm -z 0.127
 ```
 
 You can also make the script executable from any path:
 
-```
+```code
 chmod +x run_ngsf.py
 ```
 
@@ -185,7 +185,7 @@ The user must only change the parameters of the fit from the parameters.json fil
 
 `"z_exact"`    : exact redshift value that will be used if `"use_exact_z"` = 1
 
-`"z_range_begin"`,`"z_range_end"`,`"z_int"`: redshift values from which to build an array over which to look for the best fit.
+`"z_range_begin"`, `"z_range_end"`, `"z_int"`: redshift values from which to build an array over which to look for the best fit.
 
 `"resolution"`: the resolution of the fit, the default is 10Å, however, if the spectra is of lower quality then the fit will be performed automatically at 30Å.
 
@@ -244,28 +244,25 @@ Within the object subfolders inside the "original_resolution" folder we will fin
 In the `sf_class.py` file we find the main function which looks like this:
 
 
-```ruby
-
+```python
 all_parameter_space(self.int_obj,Parameters.redshift,Parameters.extconstant,Parameters.templates_sn_trunc,
                     Parameters.templates_gal_trunc, Parameters.lam, Parameters.resolution,Parameters.iterations,
                     kind=Parameters.kind, original= self.binned_name, save=self.results_name, show=show,
                     minimum_overlap=Parameters.minimum_overlap)
-
 ```
 
 
 
 The inputs of the function are called from the Parameters class within the `params.py` file, and are as follow:
 
-- `self.int_obj`: interpolated object to fit
+- `self.int_obj:` interpolated object to fit
 - `redshift:` Can be an array or an individual number. These are the redshift values over which to optimize.
-- `extconstant`: Array of values over which to optimize for the extinction constant. The user does not change this.
+- `extconstant:` Array of values over which to optimize for the extinction constant. The user does not change this.
 - `templates_sn_trunc:`  Truncated library of supernovae, aka: which SN types to look at when optimizing.
 - `templates_gal_trunc:` Truncated library of host galaxies, aka: which HG types to look at when optimizing.
 - `lam:` Lambda array over which to perform the fit. The default is from 3000 A to 10500 A.
 - `resolution:` Resolution at which to bin and perform the fit. The default is 10 A.
-- `kind:` Corresponds to the type of error spectrum the user prefers, the options are `SG`:Savitsky Golay, `linear`: for obtaining the error of the spectrum
-by making linear fit every 10 points, and `included`: if the user wants to use the error that comes with the object itself. The default is `sg`
+- `kind:` Corresponds to the type of error spectrum the user prefers, the options are `SG`:Savitsky Golay, `linear`: for obtaining the error of the spectrum by making linear fit every 10 points, and `included`: if the user wants to use the error that comes with the object itself. The default is `sg`
 - `save:` Name of results file
 - `minimum_overlap:` Corresponds to minimum percentage overlap between the template and the object of interest
 
