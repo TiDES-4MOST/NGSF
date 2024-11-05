@@ -16,7 +16,7 @@ NOTE: this is just a fork! I do not claim any authorship for NGSF, just the scri
 
 # Installation
 
-From pip (COMMING SOON):
+From pip NGSF:
 
 ```code
 pip install NGSF
@@ -116,6 +116,7 @@ Example:
 ```code
 python run_ngsf SN2021urb_2021-08-06_00-00-00_Keck1_LRIS_TNS.flm -z 0.127
 ```
+The first time you run the `run_ngsf.py` script, it will download the WISeREP templates bank into your local installation of NGSF, which might take a minute or two.
 
 You can also make the script executable from any path:
 
