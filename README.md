@@ -2,7 +2,7 @@
 
 Superfit in python is a software for the spectral classification of Supernovae of all major types accompanied by a host galaxy. The following list of versions are the minumum requierments for its use.
 
-NOTE: this is just a fork! I do not claim any authorship for NGSF, just the script provided `run_ngsf.py`. Find the original repo at [https://github.com/oyaron/NGSF](https://github.com/oyaron/NGSF).
+NOTE: this is just a fork of a fork! I do not claim any authorship for NGSF, just the script provided `run_ngsf.py`. Find the original repo at [https://github.com/oyaron/NGSF](https://github.com/oyaron/NGSF). This fork is to develop the wrapper around NGSF to integrate seamlessly with the TiDES Pipeline
 
 ## Requierments
 
